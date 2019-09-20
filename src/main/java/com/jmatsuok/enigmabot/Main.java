@@ -1,9 +1,10 @@
 package com.jmatsuok.enigmabot;
 
+import com.jmatsuok.enigmabot.handlers.DecideHandler;
 import com.jmatsuok.enigmabot.handlers.PingHandler;
+import com.jmatsuok.enigmabot.handlers.league.RandomChampHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,9 @@ public class Main {
         logger.debug("Attempting connection");
         try {
             JDA jda = new JDABuilder(configuration.getConfigOption(BOT_TOKEN))
-                    .addEventListeners(new PingHandler())
+                    .addEventListeners(new PingHandler(),
+                            new DecideHandler(),
+                            new RandomChampHandler())
                     .build();
             jda.awaitReady();
         } catch (Exception e) {
